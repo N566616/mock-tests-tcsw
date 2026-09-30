@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock Tests</title>
+<style>
+:root{--bg:#f3f5f1;--fg:#1d2a24;--card:#fff;--line:#cdd6cf;--muted:#5d6b63;--acc:#1f5d4a;--accfg:#fff;--ok:#dff1e4;--okb:#2e8b57;--bad:#f8e1df;--badb:#c0392b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201b;--fg:#e8efe9;--card:#1d2c25;--line:#33463d;--muted:#9fb1a6;--acc:#6fcaa8;--accfg:#0f1a15;--ok:#1d3a2a;--okb:#4fbf83;--bad:#3d201d;--badb:#e0675a}}
+:root[data-theme="dark"]{--bg:#14201b;--fg:#e8efe9;--card:#1d2c25;--line:#33463d;--muted:#9fb1a6;--acc:#6fcaa8;--accfg:#0f1a15;--ok:#1d3a2a;--okb:#4fbf83;--bad:#3d201d;--badb:#e0675a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 Georgia,"Times New Roman",serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.7rem;margin:.2em 0 .1em;letter-spacing:-.01em}
+h2{font-size:1.25rem;margin:1.4em 0 .4em}
+p{margin:.4em 0}
+.sub{color:var(--muted)}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:14px 0 6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-top:14px}
+.q h3{font-size:1.1rem;margin:0 0 12px;line-height:1.4}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:transparent;border:1.5px solid var(--line);border-radius:8px;padding:11px 13px;margin:8px 0;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{background:var(--ok);border-color:var(--okb)}
+.opt.bad{background:var(--bad);border-color:var(--badb)}
+.opt:disabled{cursor:default}
+.why{margin-top:12px;padding:10px 12px;border-left:4px solid var(--acc);background:var(--bg);font-size:.95rem}
+.btn{font:inherit;background:var(--acc);color:var(--accfg);border:0;border-radius:8px;padding:10px 18px;margin-top:14px;cursor:pointer}
+.btn.alt{background:transparent;color:var(--fg);border:1.5px solid var(--line)}
+.score{font-size:2.4rem;font-weight:bold;margin:.1em 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0}
+summary{cursor:pointer;font-weight:bold}
+ul{padding-left:1.2em}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>Mock tests</h1>
+<p class="sub" id="sub"></p>
+<div class="bar"><i id="fill"></i></div>
+<div class="meta"><span id="pos"></span><span id="sc"></span></div>
+<div id="app"></div>
+</main>
+<script>
+// [question, correct answer, [3 wrong answers], explanation]
+const Q1=[
+["What does the term anarchy describe?","A state of nature where nobody or everyone rules",["A government run by one leader who holds all power","A government run by religious leaders and clergy","A system where the military writes all the laws"],"Anarchy is the lack of government, which leads to chaos and a survival-of-the-fittest world."],
+["Which is NOT one of the four criteria of a state?","Religion",["Population","Territory","Sovereignty"],"The four criteria are population, territory, sovereignty, and government."],
+["Greenland has a population, territory, and government but answers to Denmark. Which criterion does it lack?","Sovereignty",["Population","Territory","Government"],"A state minus sovereignty is a territory (formerly called a colony)."],
+["Why are territories no longer commonly called colonies?","The word carries negative connotations",["It is illegal under the Constitution today","They all became states after the UN formed","It was replaced when the UN was created"],"The notes say the term was dropped because of its connotations."],
+["The UN was founded in 1945. What was tied to its mission?","Decolonization",["Creating one world government","Ending feudalism","Spreading Divine Right"],"Decolonization followed, and the Trusteeship Council pushed the US to decolonize territories."],
+["Which best defines public policy?","Laws, regulations, actions, and funding priorities on a topic",["Only the laws written in the Constitution","The personal opinions that a ruler chooses to share with the public","Any organized protest against the government"],"Public policy is what the government decides to do and how it does it."],
+["Setting a minimum wage is an example of:","Public policy",["Anarchy","Divine Right","Sovereignty"],"It is a government course of action on a specific topic."],
+["What typically happens when public policies fall apart?","Protests or rebellion occur",["The economy grows","Sovereignty increases","Authority becomes automatic"],"The government must listen to its citizens to solve this."],
+["What is power in the PALS framework?","The ability to rule through forceful compliance",["The right to rule through legal approval","Belief among the people that rule is proper","The supreme and final control over the territory"],"Power is the ability, authority is the right, legitimacy is belief, sovereignty is supreme control."],
+["What is legitimacy?","Belief in authority; public agreement",["Ability to force people into compliance","Supreme power and control over a territory","The right to hold power over others"],"Legitimacy depends on the people agreeing the ruler should rule."],
+["A mafia boss can force people to comply but has no right to. This shows:","Power without authority",["Authority without power","Legitimacy without power","Sovereignty without authority"],"They have forceful compliance but not the right to rule."],
+["A president passes laws but cannot enforce them. This shows:","Authority without power",["Power without authority","Power without legitimacy","Sovereignty without power"],"They have the right to rule but no means to enforce."],
+["A US state government is accepted by its people but must follow the federal government. This shows:","Legitimacy without sovereignty",["Power without legitimacy","Sovereignty without power","Authority without legitimacy"],"It is seen as rightful but is not the supreme power."],
+["A military group seizes supreme control of a country with no right to rule. This shows:","Sovereignty without authority",["Legitimacy without power","Authority without sovereignty","Legitimacy without authority"],"They hold supreme control but lack the right to rule."],
+["Which is NOT something all societies want from government?","To give every citizen equal wealth",["To create order and clear rules","To protect people and keep them safe","To provide for and take care of people"],"The four basics: protect, create order, provide for people, avoid anarchy."],
+["In exchange for their sovereignty, people expect government to provide:","Healthcare, infrastructure, and utilities",["Unlimited freedom with no laws or rules at all","Religious teaching and church funding","A permanent ruler chosen at birth"],"These are listed as things people expect in exchange."],
+["Force Theory says government began when:","Someone took control of an area by force",["Family leaders slowly became political leaders","God chose certain people to rule others","People signed an agreement to be governed"],"Force Theory: control by force."],
+["Evolutionary Theory says government developed from:","Families whose leaders became political rulers",["Military conquest of neighboring peoples","God directly choosing each ruler by sign","A formal vote held by all of the free adult citizens"],"The British monarchy is described by this theory in the notes."],
+["Divine Right Theory says authority comes from:","God",["The military","The people's vote","Wealth"],"Monarchs used Divine Right to legitimize their authority."],
+["Which country is a theocracy, according to the notes?","Iran",["Saudi Arabia","Denmark","The United States"],"Saudi Arabia uses Sharia law but its rulers come from an ancestral line, so it is a monarchy."],
+["Divine Right influenced Manifest Destiny because people believed:","Spreading Christianity would bring civilization",["Monarchs alone should control the West","Native nations deserved to keep the land","Expansion should be stopped at the Mississippi River"],"Westward expansion was justified as a God-given mission."],
+["Feudalism was a system where:","Wealth came from land; protection traded for labor",["Workers collectively owned all the factories","The church chose the king by election","Every person owned equal amounts of land"],"It was a pyramid of loyalty and service."],
+["The Renaissance was marked by:","Human reason and individual ability",["Tighter church control over ideas","A return to feudal land ownership and loyalty","The limiting of the English king"],"People questioned the church and read ancient texts such as Plato's."],
+["The Magna Carta:","Limited the English king's power",["Established Divine Right of kings","Ended feudalism across Europe","Gave the church authority over kings"],"It was a small change before the Enlightenment."],
+["According to Hobbes, the natural state of humans is:","Selfish people who will fight",["Good people changed by circumstances","Free people fighting over property","Peaceful farmers"],"Hobbes (1651, Leviathan) argued people need a sovereign leader."],
+["Locke argued that government should:","Protect rights and property, with people heard",["Punish lawbreakers and display the power of rulers","Let the people make every law directly","Serve the church and its teachings"],"Locke (1689) wrote the Second Treatise of Government."],
+["Rousseau believed people are naturally:","Good, but shaped by circumstances",["Selfish and always ready to fight","Fighters over land and resources","Dependent on monarchs to guide them"],"He emphasized the general will and an intermediary body that carries out laws."],
+["Which matches capitalism, socialism, and communism in order?","Private; collective or state; classless",["State ownership; private; one-man dictatorship","Shared; private; rule by religion","Classless; dictatorship; private"],"These are the definitions in your notes."],
+["What does pluralism mean?","Many people work together to solve problems",["Rule carried out by one powerful leader","Rule carried out by religious leaders and clergy","Government ownership of all industry"],"Pluralism is cooperation among many people or groups."],
+["Federalism is best described as:","Shared power and separation of power",["Rule by a single supreme person","Rule by the church and its religious clergy","Power held only by the military"],"Power is divided between central and state governments."],
+["Which are listed as structures that create and maintain order?","Military, central, and state governments",["Churches, schools, banks, and businesses","Monarchs, priests, judges, and nobles","Philosophers, poets, and newspaper writers"],"These structures keep order within a state."],
+["Authoritarianism is a system where:","Power sits with one leader or small elite",["Citizens hold power and vote on laws","Religious law governs all public life","Workers collectively own all industry and land"],"There are little to no political freedoms."],
+["Which best defines democracy?","People hold power and vote for leaders",["Power passes down through royal families","Rulers claim authority from a divine source","One party makes every decision"],"Democracy grows out of Social Contract Theory."],
+["Political philosophy is the study of:","How people should relate to society and government",["The history of wars and major conflicts","Strategies candidates use to win elections and votes","Only the workings of economic systems"],"It asks how people and government should relate."],
+["What is a founding philosophy?","How new governments borrow older ideas",["The first laws that a new government passes","The religion chosen by a new leader","The tax plan of a new government"],"Newer governments borrow ideas from earlier ones."],
+["Mountains, rivers, climate, and size affect communication, defense, and how power is distributed. Which factor is this?","Geography",["History","Culture","Economy"],"Geography is one of the factors that shape how government is executed."],
+["According to the notes, the last decolonization efforts happened in which year and place?","1980 in Zimbabwe",["1945 in Greenland","1776 in Boston","1900 in the DRC"],"Decolonization is very rare now."],
+["Which country controlled the Democratic Republic of the Congo (DRC)?","Belgium",["England","France","Denmark"],"England and France controlled much of the rest of Africa."],
+["Why did England and France lose control of their African colonies?","Because of World War II",["Because of the Magna Carta","Because of Manifest Destiny","Because of the Renaissance"],"After WWII the UN pushed decolonization."],
+["Social Contract Theory says government:","Represents the will of the people",["Receives its authority from God","Was first taken through force","Grew slowly out of family leaders"],"People agree to give up some freedoms in exchange for order."],
+["The Trail of Tears is an example of which theory at work in the US?","Force Theory",["Divine Right Theory","Evolutionary Theory","Social Contract Theory"],"Native peoples were forced to move during westward expansion."],
+["Where was democracy born?","Athens, Greece",["Rome, Italy","London, England","Boston, US"],"Athens is called the birthplace of democracy."],
+["The Middle Ages (the Dark Ages) are dated:","400 to 1400",["1400 to 1600","1600 to 1800","1000 to 1200"],"They were marked by feudalism, plague, war, and death."],
+["Why did the church gain power in the Middle Ages?","Life was rough and people needed hope",["Monarchs required everyone to join it","Every citizen owned their own land","Philosophers taught people to follow it"],"People believed in God for hope."],
+["Why did people start to distrust the church?","It spent money on gold leaf and robes",["It gave all of its land to peasants","It openly supported rule by the people","It banned the reading of ancient texts"],"They began questioning the church and reading Plato, leading to the Renaissance."],
+["Humanist thought is the belief that:","People are the solution to their problems",["God alone solves the problems of people","Monarchs must decide everything for people","Government should be avoided entirely"],"It rose during the Renaissance."],
+["The Enlightenment (1600 to 1800) is known for:","Finally putting limits on monarchs",["Strengthening Divine Right theory","The beginning of feudal systems","The founding of the United Nations"],"It led to the birth of the US and democracy."],
+["Before the Enlightenment, most governments were:","Authoritarian, like monarchies and empires",["Democracies with elected representatives","Republics with written constitutions and courts","Communist states run by one party"],"They controlled laws, military, and the economy."],
+["A theocracy is a government where:","Religious leaders hold ultimate authority",["A king inherits rule through his family","The people vote directly on every single law","The military controls the entire state"],"Authority is claimed from a divine source."],
+["Which idea do Hobbes, Locke, and Rousseau share?","People are selfish and must give up freedoms",["Monarchs should rule for their lifetimes","Government is unnecessary for good, moral people","Religion should write all of the laws"],"Each created their own version of the social contract."],
+["Which is listed as a positive of government?","Reduces violence and theft",["Loss of personal freedom","Reliance on fear to control","Can be dismantled easily"],"The rest are listed as negatives."],
+["What new point does Rousseau make?","People lack full freedom even without government",["People are selfish without any government","Only a monarch can rule with legitimacy","Government should mainly punish lawbreakers"],"He also views the population as a general will."],
+["Fascism is best described as:","A dictatorship claiming racial superiority",["Collective ownership of all resources","A state governed by religious leaders","Rule by freely elected representatives of the people"],"It is suppressive and aggressive."],
+["Capitalism is a system where:","Private businesses own the means of production",["The government owns all of the factories","The community shares ownership of all resources","Landowners rule through loyalty and service"],"Socialism and communism involve collective ownership."]
+];
+const W1=[
+["Why should anarchy be avoided, and how does government prevent it?","Anarchy means nobody (or everybody) is in charge, leading to chaos and a survival-of-the-fittest world with no natural protection and ignored minorities. Government prevents this by creating order and rules, providing security and safety, providing for the people, and making and enforcing public policy."],
+["Compare Hobbes, Locke, and Rousseau on who should rule.","Hobbes: a sovereign leader (one or several) whom people choose to submit to, basically a monarchy. Locke: a monarch with a body like Parliament that represents and listens to the people. Rousseau: the people make the laws themselves through the general will, and an intermediary body only carries them out."],
+["Explain how Divine Right Theory influenced Manifest Destiny.","Divine Right holds that God gives certain people or groups their authority. Americans applied this idea to westward expansion, believing spreading Christianity would bring civilization and that expansion would bring democracy, which justified moving Native peoples (such as the Trail of Tears)."],
+["Use the PALS terms to explain why a government can lose legitimacy. Give an example.","Legitimacy is belief in authority, so a government with power and even authority can lose it if the public stops trusting it. Example from the notes: if Gaza stops trusting Palestine to protect it, Israel or Iran can more easily take control. Other examples: a mafia has power without authority; a disliked president has authority without legitimacy."],
+["Explain why people turned away from the church in the Middle Ages and how this led to the Renaissance and Enlightenment.","Life under feudalism was rough, so people turned to the church for hope. The church wanted money and loyalty, but spent it on things like gold leaf and expensive robes instead of the community. People began to distrust it, read ancient texts such as Plato's, and embraced humanist thought (people are the solution to their problems). This led to the Renaissance, then the Enlightenment, when Locke, Hobbes, and Rousseau wrote and monarchs finally got limits."],
+["What do Hobbes, Locke, and Rousseau agree on, and what new point does Rousseau add?","They agree that people are selfish within society and that creating a government means giving up some freedoms in trade. Rousseau adds that even without government people lack full freedom because of society and reputation, and he looks at the population as a general will rather than as individuals."],
+["Explain how public policy, public service, and citizens work together.","Public policy is what the government decides to do and how, usually guided by the Constitution. Public service helps support and carry out those policies. When policies fall apart, protests or rebellion can occur, so the government must listen to its citizens to fix the problem, solve problems, make progress, and avoid anarchy."],
+["Compare capitalism, socialism, and communism.","Capitalism: private individuals or businesses own the means of production. Socialism: the means of production are owned or controlled collectively, by the community or the government. Communism: a classless society where all property and resources are owned collectively."]
+];
+// TO ADD A UNIT: copy one block inside UNITS, give it a name, and fill in Q and W.
+// Q items look like: [question, correct answer, [wrong1, wrong2, wrong3], explanation]
+// W items look like: [written prompt, model answer]
+const UNITS=[
+ {name:"Unit 1: Purpose and origin of government",Q:Q1,W:W1}
+];
+let Q=[],W=[];
+const app=document.getElementById("app"),fill=document.getElementById("fill"),pos=document.getElementById("pos"),sc=document.getElementById("sc");
+let order,i,score,missed;
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function start(){order=shuffle(Q.map((_,k)=>k));i=0;score=0;missed=[];show()}
+function show(){
+ if(i>=order.length)return done();
+ const q=Q[order[i]],opts=shuffle([q[1],...q[2]]);
+ fill.style.width=(i/order.length*100)+"%";
+ pos.textContent="Question "+(i+1)+" of "+order.length;sc.textContent="Score: "+score;
+ app.innerHTML="";
+ const box=document.createElement("div");box.className="q";
+ const h=document.createElement("h3");h.textContent=q[0];box.appendChild(h);
+ opts.forEach(o=>{
+  const b=document.createElement("button");b.className="opt";b.textContent=o;
+  b.onclick=()=>pick(b,o,q,box);box.appendChild(b)});
+ app.appendChild(box);
+ const q2=document.createElement("button");q2.className="btn alt";q2.textContent="Quit to all units";q2.onclick=home;app.appendChild(q2);
+}
+function pick(btn,o,q,box){
+ const right=o===q[1];
+ if(right)score++;else missed.push(order[i]);
+ box.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.textContent===q[1])b.classList.add("ok")});
+ if(!right)btn.classList.add("bad");
+ sc.textContent="Score: "+score;
+ const w=document.createElement("div");w.className="why";
+ w.textContent=(right?"Correct. ":"Not quite. ")+q[3];box.appendChild(w);
+ const n=document.createElement("button");n.className="btn";
+ n.textContent=i===order.length-1?"See results":"Next question";
+ n.onclick=()=>{i++;show()};box.appendChild(n);n.focus();
+}
+function done(){
+ fill.style.width="100%";pos.textContent="Finished";sc.textContent="";
+ const pct=Math.round(score/order.length*100);
+ let html='<div class="q"><p class="sub">Multiple choice result</p><div class="score">'+score+' / '+order.length+' ('+pct+'%)</div>';
+ if(missed.length){html+='<h2>Review what you missed</h2><ul>';
+  missed.forEach(k=>{html+='<li><b>'+Q[k][0]+'</b><br>Answer: '+Q[k][1]+'</li>'});html+='</ul>'}
+ else html+='<p>Perfect score. Nothing to review.</p>';
+ html+='<button class="btn" id="again">Retake this unit</button> <button class="btn alt" id="toHome">All units</button></div><h2>Written response</h2><p class="sub">Write your own answer first, then open the model answer to compare.</p>';
+ W.forEach((w,k)=>{html+='<details><summary>'+(k+1)+'. '+w[0]+'</summary><p>'+w[1]+'</p></details>'});
+ app.innerHTML=html;
+ document.getElementById("again").onclick=start;document.getElementById("toHome").onclick=home;
+}
+function begin(us){
+ Q=[].concat(...us.map(u=>u.Q));W=[].concat(...us.map(u=>u.W));
+ document.getElementById("sub").textContent=us.length>1?"All units mixed":us[0].name;start();
+}
+function home(){
+ fill.style.width="0";pos.textContent="";sc.textContent="";
+ document.getElementById("sub").textContent="Pick a unit to practice"+(UNITS.length>1?", or mix them all.":".");
+ app.innerHTML="";
+ const add=(title,detail,us)=>{
+  const b=document.createElement("button");b.className="opt";
+  b.innerHTML="<b></b><br><span class='sub'></span>";
+  b.children[0].textContent=title;b.children[2].textContent=detail;
+  b.onclick=()=>begin(us);app.appendChild(b);
+ };
+ UNITS.forEach(u=>add(u.name,u.Q.length+" multiple choice, "+u.W.length+" written prompts",[u]));
+ if(UNITS.length>1)add("Mix all units",UNITS.reduce((n,u)=>n+u.Q.length,0)+" multiple choice questions from every unit",UNITS);
+}
+home();
+</script>
+</body>
+</html>
